@@ -276,8 +276,9 @@ mod tests {
     fn test_render_with_spoilers_hidden() {
         let content = "||Secret||";
         let blocks = parse_markdown(content);
+        let style = Style::new();
         let renderer = MarkdownRenderer::new();
-        let text = renderer.render(blocks, None, false);
+        let text = renderer.render(blocks, None, false, style);
 
         let line = &text.lines[0];
         let span = &line.spans[0];
@@ -290,8 +291,9 @@ mod tests {
     fn test_render_with_spoilers_shown() {
         let content = "||Secret||";
         let blocks = parse_markdown(content);
+        let style = Style::new();
         let renderer = MarkdownRenderer::new();
-        let text = renderer.render(blocks, None, true);
+        let text = renderer.render(blocks, None, true, style);
 
         let line = &text.lines[0];
         let span = &line.spans[0];
@@ -304,8 +306,9 @@ mod tests {
     fn test_render_decoded_url() {
         let content = "https://example.com/%E6%B5%8B%E8%AF%95";
         let blocks = parse_markdown(content);
+        let style = Style::new();
         let renderer = MarkdownRenderer::new();
-        let text = renderer.render(blocks, None, false);
+        let text = renderer.render(blocks, None, false, style);
 
         let line = &text.lines[0];
         // The parser might produce [Url] or [Text, Url], but since the whole string is the URL:
